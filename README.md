@@ -26,5 +26,5 @@ This project is completely open-source and free to use!
 
 #### 📫 Support & Feedback
 - **Email**: manishmatwacs@gmail.com
-- **Telegram**: [@zeetrol](https://t.me/zeetrol)
+- **Telegram**: [@zeetrol](https://t.me/zeetron)
 - **Instagram**: [expert.py](https://instagram.com/expert.py)

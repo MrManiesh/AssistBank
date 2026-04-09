@@ -6,9 +6,9 @@ Designed to save you time when counting vast amounts of currency. Features real-
 
 ### Screenshots
 <img src="https://github.com/user-attachments/assets/f021b7f5-40d1-4a10-a192-0d8d59a11319" width="250"/>
-<img src="https://github.com/user-attachments/assets/e14086bc-028f-434e-8536-5853a2b98969" width="250"/>
-<img src="https://github.com/user-attachments/assets/8d5d05e2-7298-4766-9af6-3503308b3c12" width="250"/>
-<img src="https://github.com/user-attachments/assets/90428862-75b2-4ad8-a091-70a4692d5e1f" width="250"/>
+<img src="https://github.com/user-attachments/assets/afc6e166-31c5-4649-b3af-507b90fbf7c8" width="250"/>
+<img src="https://github.com/user-attachments/assets/ae7cee78-9bd7-4fe3-bf94-515f9ed066c8" width="250"/>
+<img src="https://github.com/user-attachments/assets/f5447cf7-4fbf-4335-9961-506323f06ed6" width="250"/>
 
 ### ✨ Features
 - **Real-Time Calculation**: See your grand total calculate instantly as you type.

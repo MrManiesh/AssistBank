@@ -15,12 +15,12 @@ android {
         versionCode = 2
         versionName = "1.1"
 
-        vectorDrawables {
+        vectorDrawables { 
             useSupportLibrary = true
         }
     }
 
-    buildTypes {
+    buildTypes { 
         release {
             isMinifyEnabled = false
             proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")

@@ -4,6 +4,12 @@ A modern, fast, and highly intuitive **Cash Denomination Calculator** for banker
 
 Designed to save you time when counting vast amounts of currency. Features real-time calculation, instant bundle conversion, and persistent offline history tracking so you never lose your totals!
 
+### Screenshots
+<img src="https://github.com/user-attachments/assets/f021b7f5-40d1-4a10-a192-0d8d59a11319" width="250"/>
+<img src="https://github.com/user-attachments/assets/e14086bc-028f-434e-8536-5853a2b98969" width="250"/>
+<img src="https://github.com/user-attachments/assets/8d5d05e2-7298-4766-9af6-3503308b3c12" width="250"/>
+<img src="https://github.com/user-attachments/assets/90428862-75b2-4ad8-a091-70a4692d5e1f" width="250"/>
+
 ### ✨ Features
 - **Real-Time Calculation**: See your grand total calculate instantly as you type.
 - **Bundle Conversion**: Automatically translates total notes into easy-to-read "bundles" (100 notes = 1 bundle).

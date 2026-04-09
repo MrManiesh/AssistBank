@@ -24,6 +24,7 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.assistbank.data.HistoryEntity
+import java.text.NumberFormat
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
@@ -63,15 +64,15 @@ fun CalculatorScreen(viewModel: MainViewModel, onBack: () -> Unit) {
                     .verticalScroll(rememberScrollState())
             ) {
                 Spacer(modifier = Modifier.height(8.dp))
-                DenominationRow(label = "₹500", value = state.count500, onValueChange = { viewModel.updateCount(500, it) })
-                DenominationRow(label = "₹200", value = state.count200, onValueChange = { viewModel.updateCount(200, it) })
-                DenominationRow(label = "₹100", value = state.count100, onValueChange = { viewModel.updateCount(100, it) })
-                DenominationRow(label = "₹50", value = state.count50, onValueChange = { viewModel.updateCount(50, it) })
-                DenominationRow(label = "₹20", value = state.count20, onValueChange = { viewModel.updateCount(20, it) })
-                DenominationRow(label = "₹10", value = state.count10, onValueChange = { viewModel.updateCount(10, it) })
-                DenominationRow(label = "₹5", value = state.count5, onValueChange = { viewModel.updateCount(5, it) })
-                DenominationRow(label = "₹2", value = state.count2, onValueChange = { viewModel.updateCount(2, it) })
-                DenominationRow(label = "₹1", value = state.count1, onValueChange = { viewModel.updateCount(1, it) })
+                DenominationRow(label = "₹500", denomination = 500, value = state.count500, onValueChange = { viewModel.updateCount(500, it) })
+                DenominationRow(label = "₹200", denomination = 200, value = state.count200, onValueChange = { viewModel.updateCount(200, it) })
+                DenominationRow(label = "₹100", denomination = 100, value = state.count100, onValueChange = { viewModel.updateCount(100, it) })
+                DenominationRow(label = "₹50", denomination = 50, value = state.count50, onValueChange = { viewModel.updateCount(50, it) })
+                DenominationRow(label = "₹20", denomination = 20, value = state.count20, onValueChange = { viewModel.updateCount(20, it) })
+                DenominationRow(label = "₹10", denomination = 10, value = state.count10, onValueChange = { viewModel.updateCount(10, it) })
+                DenominationRow(label = "₹5", denomination = 5, value = state.count5, onValueChange = { viewModel.updateCount(5, it) })
+                DenominationRow(label = "₹2", denomination = 2, value = state.count2, onValueChange = { viewModel.updateCount(2, it) })
+                DenominationRow(label = "₹1", denomination = 1, value = state.count1, onValueChange = { viewModel.updateCount(1, it) })
 
                 Spacer(modifier = Modifier.height(32.dp))
 
@@ -133,72 +134,105 @@ fun CalculatorScreen(viewModel: MainViewModel, onBack: () -> Unit) {
 }
 
 @Composable
-fun DenominationRow(label: String, value: String, onValueChange: (String) -> Unit) {
+fun DenominationRow(
+    label: String,
+    denomination: Int,
+    value: String,
+    onValueChange: (String) -> Unit
+) {
+    val count = value.toIntOrNull() ?: 0
+    val bundles = count / 100
+    val notes = count % 100
+    val totalValue = denomination.toLong() * count
+    val formatter = NumberFormat.getNumberInstance(Locale("en", "IN"))
+    val hasValue = count > 0
+
     Row(
         modifier = Modifier
             .fillMaxWidth()
             .padding(vertical = 6.dp),
         verticalAlignment = Alignment.CenterVertically
     ) {
-        Card(
-            modifier = Modifier.size(56.dp),
-            shape = RoundedCornerShape(16.dp),
-            colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surface),
-            elevation = CardDefaults.cardElevation(defaultElevation = 2.dp)
+        // ── Denomination badge ─────────────────────────────────────────
+        Box(
+            modifier = Modifier
+                .size(56.dp)
+                .clip(RoundedCornerShape(14.dp))
+                .background(
+                    if (hasValue)
+                        MaterialTheme.colorScheme.primary.copy(alpha = 0.13f)
+                    else
+                        MaterialTheme.colorScheme.onSurface.copy(alpha = 0.06f)
+                ),
+            contentAlignment = Alignment.Center
         ) {
-            Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
-                Text(
-                    text = label,
-                    fontWeight = FontWeight.Bold,
-                    fontSize = 16.sp,
-                    color = MaterialTheme.colorScheme.primary
-                )
-            }
+            Text(
+                text = label,
+                fontWeight = FontWeight.Bold,
+                fontSize = 14.sp,
+                color = if (hasValue)
+                    MaterialTheme.colorScheme.primary
+                else
+                    MaterialTheme.colorScheme.onSurface.copy(alpha = 0.38f)
+            )
         }
-        
-        Spacer(modifier = Modifier.width(16.dp))
-        
+
+        Spacer(modifier = Modifier.width(12.dp))
+
+        // ── Number input ───────────────────────────────────────────────
         OutlinedTextField(
             value = value,
             onValueChange = { if (it.length <= 6) onValueChange(it) },
             modifier = Modifier
                 .weight(1f)
-                .height(56.dp),
+                .height(54.dp),
+            placeholder = { Text("0", color = Color.Gray.copy(alpha = 0.4f), fontSize = 14.sp) },
             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.NumberPassword),
             singleLine = true,
-            shape = RoundedCornerShape(16.dp),
+            shape = RoundedCornerShape(14.dp),
             colors = OutlinedTextFieldDefaults.colors(
                 focusedBorderColor = MaterialTheme.colorScheme.primary,
-                unfocusedBorderColor = Color.Transparent,
-                focusedContainerColor = MaterialTheme.colorScheme.surface,
+                unfocusedBorderColor = MaterialTheme.colorScheme.outline.copy(alpha = 0.2f),
+                focusedContainerColor = MaterialTheme.colorScheme.primaryContainer.copy(alpha = 0.18f),
                 unfocusedContainerColor = MaterialTheme.colorScheme.surface
             )
         )
-        
-        Spacer(modifier = Modifier.width(16.dp))
-        
-        val count = value.toIntOrNull() ?: 0
-        val bundles = count / 100
-        val notes = count % 100
-        
+
+        Spacer(modifier = Modifier.width(10.dp))
+
+        // ── Bundles / notes + total ────────────────────────────────────
         Column(
-            modifier = Modifier.width(80.dp),
+            modifier = Modifier.weight(1f),
             horizontalAlignment = Alignment.End
         ) {
-            if (bundles > 0) {
-                Text(
-                    text = "$bundles bundle${if (bundles > 1) "s" else ""}",
-                    fontSize = 12.sp,
-                    fontWeight = FontWeight.SemiBold,
-                    color = MaterialTheme.colorScheme.secondary
-                )
-            }
-            if (notes > 0 || bundles == 0) {
-                Text(
-                    text = "$notes note${if (notes != 1) "s" else ""}",
-                    fontSize = 12.sp,
-                    color = Color.Gray
-                )
+            // Total value
+            Text(
+                text = if (hasValue) "= ₹${formatter.format(totalValue)}" else "—",
+                fontSize = 14.sp,
+                fontWeight = if (hasValue) FontWeight.SemiBold else FontWeight.Normal,
+                color = if (hasValue)
+                    MaterialTheme.colorScheme.primary
+                else
+                    MaterialTheme.colorScheme.onSurface.copy(alpha = 0.25f)
+            )
+            // Bundle/note breakdown
+            if (hasValue) {
+                Row(horizontalArrangement = Arrangement.End) {
+                    if (bundles > 0) {
+                        Text(
+                            text = "$bundles bdl",
+                            fontSize = 11.sp,
+                            fontWeight = FontWeight.SemiBold,
+                            color = Color(0xFF2E7D32)  // green
+                        )
+                        Spacer(modifier = Modifier.width(6.dp))
+                    }
+                    Text(
+                        text = "$notes note${if (notes != 1) "s" else ""}",
+                        fontSize = 11.sp,
+                        color = Color(0xFFF57C00)  // amber
+                    )
+                }
             }
         }
     }
